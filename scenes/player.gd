@@ -3,26 +3,61 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 const FRICTION = 10
-@onready var arm = $SpriteArm
+var walk_tween: Tween = null
+@onready var player_body = $SpriteBody
+@onready var player_arm = $SpriteArm
+@onready var particles_flash = $SpriteArm/ParticlesFlash
+@onready var particles_shell = $SpriteArm/ParticlesShell
 
 
-func _physics_process(delta: float) -> void:
-	#var arm_dir = get_global_mouse_position() - arm.global_position
-	arm.look_at(get_global_mouse_position())
-	arm.rotation += deg_to_rad(-90)
-	#arm.flip_h = arm_dir.x > 0
-	#
-	#if arm.flip_h:
-		#arm.position.y = -18
+func _physics_process(_delta: float) -> void:	
+	#var arm_dir = get_global_mouse_position() - player_arm.global_position
+	player_arm.look_at(get_global_mouse_position())
+	player_arm.rotation += deg_to_rad(-90)
+	#player_arm.flip_h = arm_dir.x > 0
+	
+	#if player_arm.flip_h:
+		#player_arm.position.y = -18
 	#else:
-		#arm.position.y = -16
+		#player_arm.position.y = -16
 	
 	var direction = Input.get_vector("walk_left", "walk_right", "walk_up", "walk_down")
 	if direction:
 		velocity = direction * SPEED
-		print(velocity)
+		if walk_tween == null:
+			start_walk_animation()
 	else:
-		#velocity = move_toward(velocity, 0, SPEED)
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
+		stop_walk_animation()
 
 	move_and_slide()
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			particles_flash.emitting = true
+			particles_shell.emitting = true
+		else:
+			particles_flash.emitting = false
+			particles_shell.emitting = false
+
+
+func start_walk_animation() -> void:
+	if walk_tween:
+		walk_tween.kill()
+		
+	walk_tween = create_tween()
+	walk_tween.set_loops()
+	
+	walk_tween.tween_property(player_body, "rotation", deg_to_rad(5), 0.2)
+	walk_tween.tween_property(player_body, "rotation", deg_to_rad(-5), 0.2)
+	
+
+
+func stop_walk_animation() -> void:
+	if walk_tween:
+		walk_tween.kill()
+		walk_tween = null
+	
+	player_body.rotation = 0

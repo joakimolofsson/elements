@@ -5,15 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://b3p3b83hqmu1j" path="res://assets/player_arm.png" id="2_qhqgy"]
 
 [sub_resource type="Gradient" id="Gradient_qhqgy"]
-offsets = PackedFloat32Array(0, 0.35986733, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 0.58431375, 0, 1, 1, 0.9098039, 0, 1)
+offsets = PackedFloat32Array(0, 0.53731346, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.9098039, 0, 1, 1, 0.58431375, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_dqkch"]
 gradient = SubResource("Gradient_qhqgy")
 
 [sub_resource type="Curve" id="Curve_qlg0r"]
-_data = [Vector2(0, 0.71002316), 0.0, 0.0, 0, 0, Vector2(0.26868045, 0.024623394), 0.0, 0.0, 0, 0, Vector2(0.41335452, 0.83806485), 0.0, 0.0, 0, 0, Vector2(0.5675675, 0.27317494), 0.0, 0.0, 0, 0, Vector2(0.6709062, 1), 0.0, 0.0, 0, 0, Vector2(0.79650235, 0.1451332), 0.0, 0.0, 0, 0, Vector2(0.9220985, 0.7514484), 0.0, 0.0, 0, 0]
-point_count = 7
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2480127, 0), 0.0, 0.0, 0, 0, Vector2(0.49602544, 1), 0.0, 0.0, 0, 0, Vector2(0.7488076, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_tuyoq"]
 curve_y = SubResource("Curve_qlg0r")
@@ -55,13 +55,12 @@ directional_velocity_min = -100.000015
 directional_velocity_max = 99.999985
 directional_velocity_curve = SubResource("CurveXYZTexture_tuyoq")
 orbit_velocity_curve = SubResource("CurveXYZTexture_3v2ag")
-radial_velocity_min = -10.000022
-radial_velocity_max = 99.99998
 gravity = Vector3(0, 0, 0)
 linear_accel_min = -20.000002
 linear_accel_max = 49.999996
 linear_accel_curve = SubResource("CurveTexture_smehm")
-scale_min = 0.0
+scale_min = 0.5
+scale_max = 0.5
 color_ramp = SubResource("GradientTexture1D_dqkch")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dqkch"]
@@ -70,10 +69,13 @@ direction = Vector3(-90, 0, 0)
 spread = 20.0
 initial_velocity_min = 100.0
 initial_velocity_max = 200.0
-gravity = Vector3(0, 300, 0)
+gravity = Vector3(0, 200, 0)
+scale_min = 0.65
+scale_max = 0.65
 color = Color(1, 0.9607843, 0, 1)
 
 [node name="Player" type="CharacterBody2D" unique_id=1042957107]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_qhqgy")
 
 [node name="SpriteBody" type="Sprite2D" parent="." unique_id=633005518]
@@ -88,11 +90,10 @@ texture = ExtResource("2_qhqgy")
 offset = Vector2(-1, 16)
 
 [node name="ParticlesFlash" type="GPUParticles2D" parent="SpriteArm" unique_id=1428724931]
-position = Vector2(-5, 36)
+position = Vector2(-5, 38)
 emitting = false
 amount = 10
 lifetime = 0.3
-one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
 randomness = 1.0
@@ -103,8 +104,7 @@ process_material = SubResource("ParticleProcessMaterial_qhqgy")
 [node name="ParticlesShell" type="GPUParticles2D" parent="SpriteArm" unique_id=1997491389]
 position = Vector2(-5, 24)
 emitting = false
-amount = 1
+amount = 20
 lifetime = 2.0
-one_shot = true
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_dqkch")

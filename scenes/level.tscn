@@ -1,10 +1,39 @@
-[gd_scene format=3 uid="uid://ddfebaa75iihk"]
+[gd_scene format=4 uid="uid://ddfebaa75iihk"]
 
 [ext_resource type="Script" uid="uid://cmlufkb8ebf84" path="res://scenes/level.gd" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://mlwao3b41cuo" path="res://scenes/player.tscn" id="2_w7c3h"]
+[ext_resource type="Texture2D" uid="uid://cemwrernqyk6o" path="res://assets/floor.png" id="3_w8frs"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mx8sn"]
+texture = ExtResource("3_w8frs")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ppgk2"]
+sources/0 = SubResource("TileSetAtlasSource_mx8sn")
 
 [node name="Level" type="Node2D" unique_id=983931878]
 script = ExtResource("1_2q6dc")
 
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=464810495]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAATAAsAAAAAAAAAAAATAAAAAAAAAAAAAAAJAAUAAAABAAMAAAAJAAYAAAADAAMAAAAKAAYAAAABAAMAAAAKAAUAAAADAAMAAAAJAAQAAAADAAEAAAAKAAQAAAADAAEAAAALAAQAAAADAAEAAAALAAUAAAADAAEAAAALAAYAAAADAAEAAAALAAcAAAADAAEAAAAKAAcAAAADAAEAAAAJAAcAAAADAAEAAAAIAAcAAAADAAEAAAAIAAYAAAADAAEAAAAIAAUAAAADAAEAAAAIAAQAAAADAAEAAAAKAAIAAAAAAAEAAAAJAAIAAAAAAAEAAAAIAAIAAAAAAAEAAAAHAAIAAAAAAAEAAAAGAAIAAAAAAAEAAAAGAAMAAAAAAAEAAAAGAAQAAAAAAAEAAAAGAAUAAAAAAAEAAAAGAAYAAAAAAAEAAAAGAAcAAAAAAAEAAAAGAAgAAAAAAAEAAAAGAAkAAAAAAAEAAAAHAAkAAAAAAAEAAAAIAAkAAAAAAAEAAAAJAAkAAAAAAAEAAAAKAAkAAAAAAAEAAAALAAkAAAAAAAEAAAAMAAkAAAAAAAEAAAANAAkAAAAAAAEAAAANAAgAAAAAAAEAAAANAAcAAAAAAAEAAAANAAYAAAAAAAEAAAANAAUAAAAAAAEAAAANAAQAAAAAAAEAAAANAAMAAAAAAAEAAAANAAIAAAAAAAEAAAAMAAIAAAAAAAEAAAALAAIAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_ppgk2")
+
 [node name="Player" parent="." unique_id=1042957107 instance=ExtResource("2_w7c3h")]
 position = Vector2(50, 50)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=456937644]
