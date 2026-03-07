@@ -98,7 +98,7 @@ speed_scale = 2.0
 explosiveness = 1.0
 randomness = 1.0
 trail_enabled = true
-trail_lifetime = 0.09999999999999999
+trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_qhqgy")
 
 [node name="ParticlesShell" type="GPUParticles2D" parent="SpriteArm" unique_id=1997491389]
