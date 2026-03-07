@@ -4,6 +4,75 @@
 [ext_resource type="Script" uid="uid://d0gbghd280yth" path="res://scenes/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://b3p3b83hqmu1j" path="res://assets/player_arm.png" id="2_qhqgy"]
 
+[sub_resource type="Gradient" id="Gradient_qhqgy"]
+offsets = PackedFloat32Array(0, 0.35986733, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.58431375, 0, 1, 1, 0.9098039, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dqkch"]
+gradient = SubResource("Gradient_qhqgy")
+
+[sub_resource type="Curve" id="Curve_qlg0r"]
+_data = [Vector2(0, 0.71002316), 0.0, 0.0, 0, 0, Vector2(0.26868045, 0.024623394), 0.0, 0.0, 0, 0, Vector2(0.41335452, 0.83806485), 0.0, 0.0, 0, 0, Vector2(0.5675675, 0.27317494), 0.0, 0.0, 0, 0, Vector2(0.6709062, 1), 0.0, 0.0, 0, 0, Vector2(0.79650235, 0.1451332), 0.0, 0.0, 0, 0, Vector2(0.9220985, 0.7514484), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_tuyoq"]
+curve_y = SubResource("Curve_qlg0r")
+
+[sub_resource type="Curve" id="Curve_fjrip"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 41.83081), 0.0, 0.0, 0, 0, Vector2(0.7806042, -132.90848), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_smehm"]
+curve = SubResource("Curve_fjrip")
+
+[sub_resource type="Curve" id="Curve_ur7pv"]
+_limits = [-2.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_y4r1p"]
+_limits = [-2.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_d2wvv"]
+_limits = [-2.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_3v2ag"]
+curve_x = SubResource("Curve_ur7pv")
+curve_y = SubResource("Curve_y4r1p")
+curve_z = SubResource("Curve_d2wvv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qhqgy"]
+particle_flag_disable_z = true
+direction = Vector3(1, 10, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 200.0
+directional_velocity_min = -100.000015
+directional_velocity_max = 99.999985
+directional_velocity_curve = SubResource("CurveXYZTexture_tuyoq")
+orbit_velocity_curve = SubResource("CurveXYZTexture_3v2ag")
+radial_velocity_min = -10.000022
+radial_velocity_max = 99.99998
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -20.000002
+linear_accel_max = 49.999996
+linear_accel_curve = SubResource("CurveTexture_smehm")
+scale_min = 0.0
+color_ramp = SubResource("GradientTexture1D_dqkch")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dqkch"]
+particle_flag_disable_z = true
+direction = Vector3(-90, 0, 0)
+spread = 20.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 300, 0)
+color = Color(1, 0.9607843, 0, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=1042957107]
 script = ExtResource("1_qhqgy")
 
@@ -17,3 +86,25 @@ polygon = PackedVector2Array(0, -31, -3, -27, -3, -25, -2, -20, -3, -19, -7, -21
 position = Vector2(15, -16)
 texture = ExtResource("2_qhqgy")
 offset = Vector2(-1, 16)
+
+[node name="ParticlesFlash" type="GPUParticles2D" parent="SpriteArm" unique_id=1428724931]
+position = Vector2(-5, 36)
+emitting = false
+amount = 10
+lifetime = 0.3
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+trail_enabled = true
+trail_lifetime = 0.09999999999999999
+process_material = SubResource("ParticleProcessMaterial_qhqgy")
+
+[node name="ParticlesShell" type="GPUParticles2D" parent="SpriteArm" unique_id=1997491389]
+position = Vector2(-5, 24)
+emitting = false
+amount = 1
+lifetime = 2.0
+one_shot = true
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_dqkch")
