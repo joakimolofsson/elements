@@ -76,6 +76,7 @@ color = Color(1, 0.9607843, 0, 1)
 
 [node name="Player" type="CharacterBody2D" unique_id=1042957107]
 scale = Vector2(0.5, 0.5)
+collision_mask = 10
 script = ExtResource("1_qhqgy")
 
 [node name="SpriteBody" type="Sprite2D" parent="." unique_id=633005518]
@@ -108,3 +109,6 @@ amount = 20
 lifetime = 2.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_dqkch")
+
+[node name="MarkerGun" type="Marker2D" parent="SpriteArm" unique_id=792598161]
+position = Vector2(-5, 36)

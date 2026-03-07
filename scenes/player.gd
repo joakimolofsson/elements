@@ -4,16 +4,21 @@ extends CharacterBody2D
 const SPEED = 100.0
 const FRICTION = 10
 var walk_tween: Tween = null
+var fire_rate := 0.1
+var can_shoot := true
 @onready var player_body = $SpriteBody
 @onready var player_arm = $SpriteArm
 @onready var particles_flash = $SpriteArm/ParticlesFlash
 @onready var particles_shell = $SpriteArm/ParticlesShell
+@onready var marker_gun = $SpriteArm/MarkerGun
+@onready var bullets = $"../Bullets"
 const BulletScene: PackedScene = preload("res://scenes/bullet.tscn")
 
 
 func _physics_process(_delta: float) -> void:
 	walk()
 	rotate_arm()
+	shoot()
 
 
 func walk() -> void:
@@ -60,22 +65,39 @@ func rotate_arm() -> void:
 		#player_arm.position.y = -16
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		print(position.angle_to_point(get_global_mouse_position()))
-		print(position.direction_to(get_global_mouse_position()))
-		print(get_global_mouse_position())
-		
-		if event.pressed:
-			shoot()
-			particles_flash.emitting = true
-			particles_shell.emitting = true
-		else:
-			particles_flash.emitting = false
-			particles_shell.emitting = false
+#func _input(event: InputEvent) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		#print(position.angle_to_point(get_global_mouse_position()))
+		#print(position.direction_to(get_global_mouse_position()))
+		#print(get_global_mouse_position())
+		#
+		#if event.pressed:
+			#shoot()
+			#particles_flash.emitting = true
+			#particles_shell.emitting = true
+		#else:
+			#particles_flash.emitting = false
+			#particles_shell.emitting = false
 
 
 func shoot() -> void:
-	print("Bang!")
-	#var bullet = BulletScene.instantiate()
-	#bullet.position = get_global_mouse_position()
+	if Input.is_action_pressed("shoot") and can_shoot:
+		can_shoot = false
+		
+		var bullet = BulletScene.instantiate()
+		bullet.direction = marker_gun.global_position.direction_to(get_global_mouse_position())
+		bullet.global_position = marker_gun.global_position
+		bullets.add_child(bullet)
+		
+		#print("Bang!")
+		particles_flash.emitting = true
+		particles_shell.emitting = true
+		
+		await get_tree().create_timer(fire_rate).timeout
+		can_shoot = true
+	
+	if Input.is_action_just_released("shoot"):
+		particles_flash.emitting = false
+		particles_shell.emitting = false
+		
+	
