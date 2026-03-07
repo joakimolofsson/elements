@@ -13,6 +13,10 @@ var can_shoot := true
 @onready var marker_gun = $SpriteArm/MarkerGun
 @onready var bullets = $"../Bullets"
 const BulletScene: PackedScene = preload("res://scenes/bullet.tscn")
+var rng = RandomNumberGenerator.new()
+
+func _ready() -> void:
+	rng.randomize()
 
 
 func _physics_process(_delta: float) -> void:
@@ -41,8 +45,8 @@ func start_walk_animation() -> void:
 	walk_tween = create_tween()
 	walk_tween.set_loops()
 	
-	walk_tween.tween_property(player_body, "rotation", deg_to_rad(5), 0.2)
-	walk_tween.tween_property(player_body, "rotation", deg_to_rad(-5), 0.2)
+	walk_tween.tween_property(player_body, "rotation", deg_to_rad(5), 0.14)
+	walk_tween.tween_property(player_body, "rotation", deg_to_rad(-5), 0.14)
 
 
 func stop_walk_animation() -> void:
@@ -86,12 +90,19 @@ func shoot() -> void:
 		
 		var bullet = BulletScene.instantiate()
 		bullet.direction = marker_gun.global_position.direction_to(get_global_mouse_position())
+		bullet.player_arm_rotation_degrees = player_arm.global_rotation_degrees
 		bullet.global_position = marker_gun.global_position
 		bullets.add_child(bullet)
 		
 		#print("Bang!")
 		particles_flash.emitting = true
 		particles_shell.emitting = true
+		
+		print(player_arm.global_rotation_degrees)
+		var player_arm_original_position = Vector2(15, -16)
+		var tween = create_tween().set_parallel(false)
+		tween.tween_property(player_arm, "position", player_arm_original_position + Vector2(-4, 0), 0.05)
+		tween.tween_property(player_arm, "position", player_arm_original_position, 0.1)
 		
 		await get_tree().create_timer(fire_rate).timeout
 		can_shoot = true
