@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://mlwao3b41cuo"]
+
+[ext_resource type="Texture2D" uid="uid://biui1dudr7d0p" path="res://assets/player.png" id="1_g2els"]
+[ext_resource type="Script" uid="uid://d0gbghd280yth" path="res://scenes/player.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://b3p3b83hqmu1j" path="res://assets/player_arm.png" id="2_qhqgy"]
+
+[node name="Player" type="CharacterBody2D" unique_id=1042957107]
+script = ExtResource("1_qhqgy")
+
+[node name="SpriteBody" type="Sprite2D" parent="." unique_id=633005518]
+texture = ExtResource("1_g2els")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1762977798]
+polygon = PackedVector2Array(0, -31, -3, -27, -3, -25, -2, -20, -3, -19, -7, -21, -12, -18, -14, -15, -13, -10, -13, -5, -14, -1, -12, 8, -10, 10, -9, 6, -6, 8, -7, 12, -6, 15, -6, 28, -9, 32, -2, 32, 2, 15, 6, 32, 13, 32, 10, 28, 10, 15, 11, 12, 10, 8, 10, 1, 8, -1, 8, -6, 14, -13, 14, -18, 11, -21, 8, -19, 6, -20, 7, -25, 7, -27, 4, -31)
+
+[node name="SpriteArm" type="Sprite2D" parent="." unique_id=1653075323]
+visible = false
+position = Vector2(14, 0)
+texture = ExtResource("2_qhqgy")
