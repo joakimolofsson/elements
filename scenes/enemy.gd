@@ -22,7 +22,6 @@ func _physics_process(_delta: float) -> void:
 
 
 func walk_animation() -> void:
-	print("hej")
 	if walk_tween:
 		walk_tween.kill()
 		
