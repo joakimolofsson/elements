@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 100.0
 const FRICTION = 10
 var walk_tween: Tween = null
+var arm_tween: Tween
 var fire_rate := 0.1
 var can_shoot := true
 @onready var player_body = $SpriteBody
@@ -14,6 +15,7 @@ var can_shoot := true
 @onready var bullets = $"../Bullets"
 const BulletScene: PackedScene = preload("res://scenes/bullet.tscn")
 var rng = RandomNumberGenerator.new()
+
 
 func _ready() -> void:
 	rng.randomize()
@@ -98,11 +100,15 @@ func shoot() -> void:
 		particles_flash.emitting = true
 		particles_shell.emitting = true
 		
-		print(player_arm.global_rotation_degrees)
+		#print(player_arm.global_rotation_degrees)
+		
+		if arm_tween:
+			arm_tween.kill()
+		
 		var player_arm_original_position = Vector2(15, -16)
-		var tween = create_tween().set_parallel(false)
-		tween.tween_property(player_arm, "position", player_arm_original_position + Vector2(-4, 0), 0.05)
-		tween.tween_property(player_arm, "position", player_arm_original_position, 0.1)
+		arm_tween = create_tween().set_parallel(false)
+		arm_tween.tween_property(player_arm, "position", player_arm_original_position + Vector2(-4, 0), 0.05)
+		arm_tween.tween_property(player_arm, "position", player_arm_original_position, 0.1)
 		
 		await get_tree().create_timer(fire_rate).timeout
 		can_shoot = true

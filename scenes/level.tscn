@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cmlufkb8ebf84" path="res://scenes/level.gd" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://mlwao3b41cuo" path="res://scenes/player.tscn" id="2_w7c3h"]
 [ext_resource type="Texture2D" uid="uid://cemwrernqyk6o" path="res://assets/floor.png" id="3_w8frs"]
+[ext_resource type="PackedScene" uid="uid://psxnw4v1qsb" path="res://scenes/enemy.tscn" id="4_mx8sn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mx8sn"]
 texture = ExtResource("3_w8frs")
@@ -45,3 +46,26 @@ position = Vector2(160, 96)
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=456937644]
 
 [node name="Bullets" type="Node2D" parent="." unique_id=1081559524]
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1615969626]
+
+[node name="Enemy" parent="Enemies" unique_id=339705823 instance=ExtResource("4_mx8sn")]
+position = Vector2(16.000006, 16.000015)
+
+[node name="Enemy2" parent="Enemies" unique_id=365614957 instance=ExtResource("4_mx8sn")]
+position = Vector2(63.999992, 16.000002)
+
+[node name="Enemy3" parent="Enemies" unique_id=998655443 instance=ExtResource("4_mx8sn")]
+position = Vector2(112, 16.000004)
+
+[node name="Enemy4" parent="Enemies" unique_id=493717907 instance=ExtResource("4_mx8sn")]
+position = Vector2(303.99997, 16.000015)
+
+[node name="Enemy5" parent="Enemies" unique_id=230835736 instance=ExtResource("4_mx8sn")]
+position = Vector2(303.99997, 176)
+
+[node name="Enemy6" parent="Enemies" unique_id=1297474980 instance=ExtResource("4_mx8sn")]
+position = Vector2(159.99998, 176)
+
+[node name="Enemy7" parent="Enemies" unique_id=535656316 instance=ExtResource("4_mx8sn")]
+position = Vector2(16, 176)
