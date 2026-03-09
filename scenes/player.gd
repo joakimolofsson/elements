@@ -60,16 +60,17 @@ func stop_walk_animation() -> void:
 
 
 func rotate_arm() -> void:
-	#var arm_dir = get_global_mouse_position() - player_arm.global_position
+	#print(wrapf(rad_to_deg(player_arm.rotation), 0, 360))
+	var arm_direction = get_global_mouse_position() - player_arm.global_position
+	#print(player_arm.global_position.x)
+	#print(get_global_mouse_position().x)
 	player_arm.look_at(get_global_mouse_position())
 	player_arm.rotation += deg_to_rad(-90)
-	#player_arm.flip_h = arm_dir.x > 0
 	
-	#if player_arm.flip_h:
-		#player_arm.position.y = -18
-	#else:
-		#player_arm.position.y = -16
-
+	if arm_direction.x > 0:
+		player_arm.scale.x = -1
+	else:
+		player_arm.scale.x = 1
 
 #func _input(event: InputEvent) -> void:
 	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -116,5 +117,3 @@ func shoot() -> void:
 	if Input.is_action_just_released("shoot"):
 		particles_flash.emitting = false
 		particles_shell.emitting = false
-		
-	

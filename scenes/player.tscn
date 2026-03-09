@@ -88,10 +88,10 @@ polygon = PackedVector2Array(0, -31, -3, -27, -3, -25, -2, -20, -3, -19, -7, -21
 [node name="SpriteArm" type="Sprite2D" parent="." unique_id=1653075323]
 position = Vector2(15, -16)
 texture = ExtResource("2_qhqgy")
-offset = Vector2(-1, 16)
+offset = Vector2(0, 16)
 
 [node name="ParticlesFlash" type="GPUParticles2D" parent="SpriteArm" unique_id=1428724931]
-position = Vector2(-5, 38)
+position = Vector2(-4, 38)
 emitting = false
 amount = 10
 lifetime = 0.3
@@ -103,7 +103,7 @@ trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_qhqgy")
 
 [node name="ParticlesShell" type="GPUParticles2D" parent="SpriteArm" unique_id=1997491389]
-position = Vector2(-5, 24)
+position = Vector2(-4, 24)
 emitting = false
 amount = 20
 lifetime = 2.0
@@ -111,4 +111,4 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_dqkch")
 
 [node name="MarkerGun" type="Marker2D" parent="SpriteArm" unique_id=792598161]
-position = Vector2(-5, 36)
+position = Vector2(-4, 36)
